@@ -17,10 +17,6 @@ export default {
           gradient2: "rgba(63, 63, 63,0.95)",
           icon: "#C6C6C6",
           hoverIconBg: "#3a3a3e",
-          codingBg: "#1F1F1F",
-          codingOuterBg: "#212428",
-          codingTextBase: "#86DAFA",
-          codingTextHl: "#C5854C",
       }
     },
   },
