@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { OptionContext, UploadContext } from "../context/OptionContext";
 import ReactCrop from "react-image-crop";
 import ImageCrop from "./ImageCrop";
+import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
 
 const TheImage = () => {
   const {
@@ -109,82 +110,85 @@ const TheImage = () => {
     }
   }, [download, currentPage]);
 
-  useEffect(() => {
-    let prevDist = null; // To store the previous distance between touches
-  
-    const handleZoom = (e) => {
-      if (e.ctrlKey) {
-        e.preventDefault(); // Prevent the browser's default zoom behavior
-        if (imageRef.current) {
-          setZoom((prevZoom) => {
-            const delta = e.deltaY > 0 ? -0.2 : 0.2; // Zoom in (negative deltaY) or out (positive deltaY)
-            return Math.max(0.1, prevZoom + delta); // Prevent zoom level from going below 0.1
-          });
-        }
-      }
-    };
-  
-    const handleTouchZoom = (e) => {
-      if (e.touches.length === 2) {
-        e.preventDefault(); // Prevent pinch-to-zoom behavior
-        const touch1 = e.touches[0];
-        const touch2 = e.touches[1];
-  
-        const dist = Math.sqrt(
-          Math.pow(touch2.clientX - touch1.clientX, 2) +
-          Math.pow(touch2.clientY - touch1.clientY, 2)
-        );
-  
-        if (prevDist !== null) {
-          setZoom((prevZoom) => {
-            const delta = dist > prevDist ? 0.02 : -0.02; // Adjust zoom based on distance
-            return Math.max(0.1, prevZoom + delta); // Prevent zoom level from going below 0.1
-          });
-        }
-  
-        prevDist = dist; // Update the previous distance
-      }
-    };
-  
-    const handleTouchEnd = () => {
-      prevDist = null; // Reset the previous distance when touches end
-    };
-  
-    // Attach event listeners for desktop and mobile
-    document.addEventListener("wheel", handleZoom, { passive: false });
-    document.addEventListener("touchmove", handleTouchZoom, { passive: false });
-    document.addEventListener("touchend", handleTouchEnd);
-  
-    // Cleanup
-    return () => {
-      document.removeEventListener("wheel", handleZoom);
-      document.removeEventListener("touchmove", handleTouchZoom);
-      document.removeEventListener("touchend", handleTouchEnd);
-    };
-  }, []);
-  
-  
+  // useEffect(() => {
+  //   let prevDist = null; // To store the previous distance between touches
+
+  //   const handleZoom = (e) => {
+  //     if (e.ctrlKey) {
+  //       e.preventDefault(); // Prevent the browser's default zoom behavior
+  //       if (imageRef.current) {
+  //         setZoom((prevZoom) => {
+  //           const delta = e.deltaY > 0 ? -0.2 : 0.2; // Zoom in (negative deltaY) or out (positive deltaY)
+  //           return Math.max(0.1, prevZoom + delta); // Prevent zoom level from going below 0.1
+  //         });
+  //       }
+  //     }
+  //   };
+
+  //   const handleTouchZoom = (e) => {
+  //     if (e.touches.length === 2) {
+  //       e.preventDefault(); // Prevent pinch-to-zoom behavior
+  //       const touch1 = e.touches[0];
+  //       const touch2 = e.touches[1];
+
+  //       const dist = Math.sqrt(
+  //         Math.pow(touch2.clientX - touch1.clientX, 2) +
+  //         Math.pow(touch2.clientY - touch1.clientY, 2)
+  //       );
+
+  //       if (prevDist !== null) {
+  //         setZoom((prevZoom) => {
+  //           const delta = dist > prevDist ? 0.02 : -0.02; // Adjust zoom based on distance
+  //           return Math.max(0.1, prevZoom + delta); // Prevent zoom level from going below 0.1
+  //         });
+  //       }
+
+  //       prevDist = dist; // Update the previous distance
+  //     }
+  //   };
+
+  //   const handleTouchEnd = () => {
+  //     prevDist = null; // Reset the previous distance when touches end
+  //   };
+
+  //   // Attach event listeners for desktop and mobile
+  //   document.addEventListener("wheel", handleZoom, { passive: false });
+  //   document.addEventListener("touchmove", handleTouchZoom, { passive: false });
+  //   document.addEventListener("touchend", handleTouchEnd);
+
+  //   // Cleanup
+  //   return () => {
+  //     document.removeEventListener("wheel", handleZoom);
+  //     document.removeEventListener("touchmove", handleTouchZoom);
+  //     document.removeEventListener("touchend", handleTouchEnd);
+  //   };
+  // }, []);
 
   return (
     <>
       {url && currentPage === "edit" ? (
-        <div className="flex flex-col items-center justify-center min-h-screen box-border sm:h-screen overflow-hidden">
-          {/* Display the image */}
-          <img
-            src={url}
-            ref={imageRef}
-            alt="Filtered"
-            className="sm:max-w-sm max-w-xs select-none"
-            style={{
-              filter: getImageFilter(),
-              ...getImageStyle(),
-              transform: `scale(${zoom})`,
-            }}
-          />
+        <TransformWrapper>
+          <TransformComponent>
+            <div className="flex w-screen flex-col items-center justify-center min-h-screen box-border sm:h-screen overflow-hidden">
+              {/* Display the image */}
 
-          {/* Hidden canvas for processing */}
-          <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
-        </div>
+              <img
+                src={url}
+                ref={imageRef}
+                alt="Filtered"
+                className="sm:max-w-sm max-w-xs select-none"
+                style={{
+                  filter: getImageFilter(),
+                  ...getImageStyle(),
+                  // transform: `scale(${zoom})`,
+                }}
+              />
+
+              {/* Hidden canvas for processing */}
+              <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
+            </div>
+          </TransformComponent>
+        </TransformWrapper>
       ) : (
         currentPage === "crop" && (
           <div className="flex flex-col items-center justify-center h-screen overflow-hidden">
