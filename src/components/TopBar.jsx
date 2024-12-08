@@ -77,34 +77,28 @@ const TopBar = () => {
 
   useEffect(() => {
     if (!menuItemOptions && !url) return;
-    if (selectedItem === "reset") {
+    if (selectedItem === "reset" && url) {
       setMenuItemOptions(resetOptions);
-      //console.log(resetOptions)
-      const crop = resetOptions.find((option) => option.property === "crop");
-      setUrl(crop.url);
+      const cropUrl = resetOptions.find((option) => option.property === "crop")?.url;
+      setUrl(cropUrl);
     } else if (selectedItem === "export") {
       setDownload(true);
-    } else if (selectedItem === "undo" && undoHistory.length > 0) {
-      //setRedoHistory(pre => [...pre,menuItemOptions])
-      const popOption = undoHistory.pop();
-      setMenuItemOptions(popOption);
-      setRedoHistory((pre) => [...pre, popOption]);
-      const crop = popOption.find((option) => option.property === "crop");
-      setUrl(crop.url);
-    } else if (selectedItem === "redo" && redoHistory.length > 0) {
-      const popOption = redoHistory.pop();
-      setMenuItemOptions(popOption);
-      setUndoHistory((pre) => [...pre, popOption]);
-      const crop = popOption.find((option) => option.property === "crop");
-      setUrl(crop.url);
-    } else if(selectedItem === "save-cloud" && url !== null){
-      if(userData){
-        setUploadMadal(true)
-      }else{
-        setSignInMadalOpen(true)
-      }
+    } else if (["undo", "redo"].includes(selectedItem)) {
+      const isUndo = selectedItem === "undo";
+      const sourceHistory = isUndo ? undoHistory : redoHistory;
+      const targetHistory = isUndo ? redoHistory : undoHistory;
     
+      if (sourceHistory.length > 0) {
+        const popOption = sourceHistory.pop();
+        setMenuItemOptions(popOption);
+        targetHistory.push(popOption);
+        const cropUrl = popOption.find((option) => option.property === "crop")?.url;
+        setUrl(cropUrl);
+      }
+    } else if (selectedItem === "save-cloud" && url) {
+      userData ? setUploadMadal(true) : setSignInMadalOpen(true);
     }
+    
 
     const updatedOption = menuItemOptions.find(
       (item) => item.property === selectedMenuOption?.property

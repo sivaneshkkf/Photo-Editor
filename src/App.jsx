@@ -18,6 +18,7 @@ import MessageMadel from "./Madels/MessageMadel";
 import UploadMadal from "./Madels/UploadMadal";
 import UploadedImages from "./pages/UploadedImages";
 import SignInMadal from "./Madels/SignInMadal";
+import InstallApp from "./buttons/InstallApp";
 
 const App = () => {
   const [CreateBtnShow, setCreateBtnShow] = useState(true);
@@ -147,6 +148,7 @@ const App = () => {
           }}
         >
           <div className="h-screen overflow-hidden bg-primary">
+            <InstallApp/>
             <TheHeader />
             {CreateBtnShow && <SelectFile className="h-16 mt-28 sm:mt-20 mx-2 rounded-md" />}
             <TopBar />

@@ -38,24 +38,26 @@ const ImageCrop = ({ url }) => {
 
   const onSave = () => {
     if (!completedCrop || !imageRef.current || !canvasRef.current) return;
-
+  
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     const image = imageRef.current;
-
+  
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
-
-    canvas.width = completedCrop.width;
-    canvas.height = completedCrop.height;
-
+  
+    const qualityScale = 2; // Adjust this for better quality output
+  
+    canvas.width = completedCrop.width * scaleX * qualityScale;
+    canvas.height = completedCrop.height * scaleY * qualityScale;
+  
     // Apply transformations and crop
     ctx.save();
     ctx.translate(canvas.width / 2, canvas.height / 2);
     ctx.rotate((rotation * Math.PI) / 180);
     ctx.scale(scale, scale);
     ctx.translate(-canvas.width / 2, -canvas.height / 2);
-
+  
     ctx.drawImage(
       image,
       completedCrop.x * scaleX,
@@ -64,30 +66,28 @@ const ImageCrop = ({ url }) => {
       completedCrop.height * scaleY,
       0,
       0,
-      completedCrop.width,
-      completedCrop.height
+      canvas.width,
+      canvas.height
     );
     ctx.restore();
-
-    // Convert canvas to image URL
-    const croppedImageUrl = canvas.toDataURL("image/png");
-    // const link = document.createElement("a");
-    // link.href = croppedImageUrl;
-    // link.download = "cropped-image.png";
-    // link.click();
-    setUrl(croppedImageUrl);
-    setCurrentPage("edit");
-    setSelectedMenuOption(menuItemOptions[0]);
-    setSelectedIndex(0)
-    setMenuItemOptions((pre) => {
-      return pre.map((option, index) => {
-        if (option.property !== "crop") return option;
-        return { ...option, url: croppedImageUrl };
+  
+    // Convert canvas to image URL with better quality using toBlob
+    canvas.toBlob((blob) => {
+      const croppedImageUrl = URL.createObjectURL(blob);
+      setUrl(croppedImageUrl);
+      setCurrentPage("edit");
+      setSelectedMenuOption(menuItemOptions[0]);
+      setSelectedIndex(0);
+      setMenuItemOptions((pre) => {
+        return pre.map((option, index) => {
+          if (option.property !== "crop") return option;
+          return { ...option, url: croppedImageUrl };
+        });
       });
-    });
-    setUndoHistory((pre) => [...pre, menuItemOptions]);
+      setUndoHistory((pre) => [...pre, menuItemOptions]);
+    }, "image/png", 2.0); // 1.0 for highest quality
   };
-
+  
   const onCancel = () => {
     setCrop(null);
     setRotation(0);
