@@ -7,7 +7,7 @@ import useSupabaseFunc from "../hooks/useSupabaseFunc";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const UploadedImages = () => {
-  const { CreateBtnShow, setGalleryOpen, setUrl, setCreateBtnShow } =
+  const { CreateBtnShow, setGalleryOpen, setUrl, setCreateBtnShow, setResetOptions } =
     useContext(OptionContext);
   const { userData } = useContext(UserContext);
 
@@ -20,6 +20,12 @@ const UploadedImages = () => {
     setUrl(imageUrl);
     setGalleryOpen(false);
     setCreateBtnShow(false);
+    setResetOptions((pre) => {
+      return pre.map((option) => {
+        if (option.property !== "crop") return option;
+        return { ...option, url: imageUrl };
+      });
+    });
   };
 
   const handleDelete = async (id,path) => {
@@ -55,8 +61,8 @@ const UploadedImages = () => {
 
   return (
     <div
-      className={`inset-x-40 bg-secondary p-5 rounded-lg mx-auto mt-5 overflow-y-scroll absolute bottom-5 ${
-        CreateBtnShow ? "top-36" : "top-10"
+      className={`inset-x-2 sm:inset-x-16 lg:inset-x-40 bg-secondary p-5 rounded-lg mx-auto mt-16 sm:mt-5 overflow-y-scroll absolute bottom-12 sm:bottom-5 ${
+        CreateBtnShow ? "top-40 sm:top-36" : "top-10"
       }`}
       style={{
         scrollbarWidth: "none",
@@ -78,7 +84,7 @@ const Image = ({ img, onClick, canDelete, onDelete, loading }) => (
     <img
       src={img.imageUrl}
       alt="img"
-      className="w-40 h-52 rounded-lg object-cover"
+      className="sm:w-40 sm:h-52 w-28 h-32 rounded-lg object-cover object-center"
       onClick={onClick}
     />
     {canDelete && (

@@ -49,7 +49,7 @@ const SelectFile = ({ className }) => {
         />
         <label
           htmlFor="fileInput"
-          className={`flex justify-center cursor-pointer items-center bg-gradient-to-br from-accent1 to-accent2 ${className}`}
+          className={`flex justify-center sm:px-0 px-2 mb-1 cursor-pointer items-center bg-gradient-to-br from-accent1 to-accent2 ${className}`}
         >
           <p className="text-2xl text-white font-semibold select-none">+</p>
         </label>

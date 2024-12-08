@@ -5,11 +5,12 @@ import { OptionContext } from "../context/OptionContext";
 const GalleryBtn = () => {
 
   const {
-    galleryOpen,setGalleryOpen
+    galleryOpen,setGalleryOpen,setSelectedIndex
   } = useContext(OptionContext);
 
   const handleClick = () => {
     setGalleryOpen(!galleryOpen)
+    setSelectedIndex(-1)
   }
 
   useEffect(() => {
@@ -27,7 +28,7 @@ const GalleryBtn = () => {
 
   return (
     <div
-      className={`flex justify-center cursor-pointer items-center bg-secondary h-8 rounded roun`}
+      className={`flex px-2 pb-2 pt-3 justify-center cursor-pointer items-center bg-secondary sm:h-8 rounded roun`}
       onClick={handleClick}
     >
       <span className="text-2xl text-white font-semibold select-none">

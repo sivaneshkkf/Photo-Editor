@@ -138,6 +138,7 @@ const SideBar = () => {
     setCurrentPage,
     selectedIndex,
     setSelectedIndex,
+    setGalleryOpen
   } = useContext(OptionContext);
 
   const [hoverAnim, setHoverAnim] = useState({});
@@ -150,6 +151,8 @@ const SideBar = () => {
     if (selectedIndex !== null) {
       setCurrentPage("edit");
       setSelectedMenuOption(menuItemOptions[selectedIndex]);
+
+      selectedIndex !== -1 && setGalleryOpen(false)
 
       if (menuItemOptions[selectedIndex]?.property === "crop") {
         setCurrentPage("crop");
@@ -189,11 +192,17 @@ const SideBar = () => {
   // }, [redoHistory]);
 
   return (
-    <div className="fixed left-0 top-1/2 transform -translate-y-1/2 m-2 space-y-1">
+    <div className="fixed bottom-0 sm:bottom-auto flex gap-2 sm:block sm:left-0 sm:top-1/2 transform sm:-translate-y-1/2 sm:m-2 sm:space-y-1 z-50 items-end overflow-x-scroll sm:overflow-hidden w-full sm:w-fit sm:px-0 px-4 sm:bg-transparent bg-secondary"
+    
+    style={{
+      scrollbarWidth: "none",
+      msOverflowStyle: "none",
+    }}
+    >
       {!CreateBtnShow && <SelectFile className="rounded" />}
       <GalleryBtn/>
       <div
-        className={`rounded shadow-md bg-secondary text-white ${
+        className={`rounded flex sm:block shadow-md bg-secondary text-white ${
           url ? "" : "pointer-events-none opacity-50"
         }`}
       >
@@ -236,7 +245,7 @@ function SideBarItems({
       onMouseLeave={() => setHoverAnim({ index: -1, anim: false })}
     >
       {selectedIndex === index && (
-        <div className="absolute h-full bg-blue-600 w-[3px] left-0"></div>
+        <div className="absolute sm:h-full bg-blue-600 sm:w-[3px] left-0 bottom-0 sm:bottom-auto w-full h-[4px]"></div>
       )}
 
       <Icon className="w-5 h-5 text-icon" />

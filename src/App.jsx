@@ -66,6 +66,20 @@ const App = () => {
     return () => clearTimeout(timeout);
   }, [message]);
 
+  useEffect(() => {
+    const handleWheel = (e) => {
+      if (e.ctrlKey) {
+        e.preventDefault();
+      }
+    };
+
+    window.addEventListener("wheel", handleWheel, { passive: false });
+
+    return () => {
+      window.removeEventListener("wheel", handleWheel);
+    };
+  }, []);
+
   return (
     <UploadContext.Provider
       value={{
@@ -121,14 +135,14 @@ const App = () => {
         >
           <div className="h-screen overflow-hidden bg-primary">
             <TheHeader />
-            {CreateBtnShow && <SelectFile className="h-16 mt-20 rounded-md" />}
+            {CreateBtnShow && <SelectFile className="h-16 mt-28 sm:mt-20 mx-2 rounded-md" />}
             <TopBar />
             <SideBar />
             {url && <TheImage />}
             {galleryOpen &&  <UploadedImages />}
 
             <SliderComp />
-            <div className="absolute top-2 right-2">
+            <div className="absolute top-2 right-2 hidden sm:block">
               <Login />
             </div>
             {(loginMadalOpen || message || uploadMadal || signInMadalOpen) && (

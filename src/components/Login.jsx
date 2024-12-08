@@ -26,14 +26,14 @@ const Login = () => {
   return (
     <>
       {userData ? (
-        <div className="flex items-center text-textpara font-semibold gap-2 cursor-pointer"
+        <div className="flex items-center text-textpara text-sm font-medium gap-2 cursor-pointer z-50"
         onClick={() => setLoginMadalOpen(true)}
         >
           <p>{userData?.full_name}</p>
           <img
             src={userData?.avatar_url}
             alt="profile"
-            className="w-10 h-10 rounded-full border-2 border-textpara"
+            className="sm:w-10 sm:h-10 w-8 h-8 rounded-full border-2 border-textpara"
           />
         </div>
       ) : (

@@ -148,8 +148,8 @@ const TopBar = () => {
   // }, [selectedMenuOption]);
 
   return (
-    <div className="fixed top-0 left-1/2 transform -translate-x-1/2 m-2 rounded shadow-md bg-secondary text-white z-40">
-      <div className="flex">
+    <div className="fixed top-10 sm:top-0 inset-x-2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-2 rounded shadow-md bg-secondary text-white z-40 sm:w-fit">
+      <div className="flex justify-around sm:justify-center">
         {topMenuItems?.map((item, index) => (
           <SideBarItems
             key={index}
