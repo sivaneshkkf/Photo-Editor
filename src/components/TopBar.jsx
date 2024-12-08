@@ -73,16 +73,19 @@ const TopBar = () => {
     setTopMenuItems(topBarMenuItems); // Ensure `sideBarMenuItems` is defined
   }, [topBarMenuItems]);
 
+  //console.log(undoHistory)
+
   useEffect(() => {
     if (!menuItemOptions && !url) return;
     if (selectedItem === "reset") {
       setMenuItemOptions(resetOptions);
-      console.log(resetOptions)
+      //console.log(resetOptions)
       const crop = resetOptions.find((option) => option.property === "crop");
       setUrl(crop.url);
     } else if (selectedItem === "export") {
       setDownload(true);
     } else if (selectedItem === "undo" && undoHistory.length > 0) {
+      //setRedoHistory(pre => [...pre,menuItemOptions])
       const popOption = undoHistory.pop();
       setMenuItemOptions(popOption);
       setRedoHistory((pre) => [...pre, popOption]);
@@ -148,7 +151,7 @@ const TopBar = () => {
   // }, [selectedMenuOption]);
 
   return (
-    <div className="fixed top-10 sm:top-0 inset-x-2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-2 rounded shadow-md bg-secondary text-white z-40 sm:w-fit">
+    <div className="fixed top-10 sm:top-0 inset-x-2 sm:left-1/2 sm:transform sm:-translate-x-1/2 mt-2 rounded shadow-md bg-secondary text-white z-50 sm:w-fit">
       <div className="flex justify-around sm:justify-center">
         {topMenuItems?.map((item, index) => (
           <SideBarItems

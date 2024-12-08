@@ -4,7 +4,7 @@ import Login from "./Login";
 
 const TheHeader = () => {
   return (
-    <div className="absolute top-0 left-0 p-2 flex items-center gap-2 z-50 justify-between w-full bg-primary">
+    <div className="absolute top-0 left-0 p-2 flex items-center gap-2 z-50 justify-between w-full bg-primary sm:bg-transparent">
       <div className="flex gap-2 items-center">
         <span>
           <img src={logo} alt="logo" className="w-6" />

@@ -5,7 +5,7 @@ import { OptionContext } from "../context/OptionContext";
 import {motion} from "motion/react"
 
 const SliderComp = () => {
-  const { selectedMenuOption, setSelectedMenuOption, currentPage } =
+  const { selectedMenuOption, setSelectedMenuOption, currentPage, setUndoHistory, menuItemOptions } =
     useContext(OptionContext);
   const [sliderVal, setSliderVal] = useState(selectedMenuOption?.value || 0);
 
@@ -20,6 +20,10 @@ const SliderComp = () => {
   function handleSliderChange(e, newValue) {
     setSliderVal(newValue);
     setSelectedMenuOption((prev) => ({ ...prev, value: newValue }));
+  }
+
+  const handleOnChangeCommited = () => {
+    setUndoHistory((pre) => [...pre, menuItemOptions]);
   }
 
   //console.log(selectedMenuOption)
@@ -43,6 +47,7 @@ const SliderComp = () => {
                 step={selectedMenuOption.step}
                 value={sliderVal} // Controlled value
                 onChange={handleSliderChange} // Update value when changed
+                onChangeCommitted={handleOnChangeCommited}
                 sx={{
                   color: "#FF6500", // Default thumb and track color
                   "& .MuiSlider-thumb": {
