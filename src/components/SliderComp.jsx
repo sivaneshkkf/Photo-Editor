@@ -3,8 +3,11 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { OptionContext } from "../context/OptionContext";
 import {motion} from "motion/react"
+import useScreenSize from "../hooks/useScreenSize";
 
 const SliderComp = () => {
+  const { width, height, size } = useScreenSize();
+
   const { selectedMenuOption, setSelectedMenuOption, currentPage, setUndoHistory, menuItemOptions } =
     useContext(OptionContext);
   const [sliderVal, setSliderVal] = useState(selectedMenuOption?.value || 0);
@@ -26,14 +29,14 @@ const SliderComp = () => {
     setUndoHistory((pre) => [...pre, menuItemOptions]);
   }
 
-  //console.log(selectedMenuOption)
+  console.log(size)
 
   return (
     <>
       {selectedMenuOption && currentPage == "edit" && (
         <motion.div className="fixed bottom-20 sm:bottom-2 left-1/2 transform -translate-x-1/2 bg-secondary w-full sm:w-fit px-5 pb-1 pt-2 rounded-lg flex flex-col justify-center items-center gap-2"
         initial={{bottom:-50}}
-        animate={{bottom:65}}
+        animate={size === "sm" ? {bottom:65} : {bottom:10}}
         transition={{duration:0.5, ease:"easeInOut"}}
         >
           <div>
