@@ -61,7 +61,7 @@ const UploadedImages = () => {
 
   return (
     <div
-      className={`inset-x-2 sm:inset-x-16 lg:inset-x-40 bg-secondary p-5 rounded-lg mx-auto mt-16 sm:mt-5 overflow-y-scroll absolute bottom-12 sm:bottom-5 ${
+      className={`inset-x-2 sm:inset-x-16 lg:inset-x-40 bg-secondary p-5 rounded-lg mx-auto mt-16 sm:mt-5 overflow-y-scroll absolute bottom-16 sm:bottom-5 ${
         CreateBtnShow ? "top-40 sm:top-36" : "top-10"
       }`}
       style={{

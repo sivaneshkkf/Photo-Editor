@@ -192,7 +192,7 @@ const SideBar = () => {
   // }, [redoHistory]);
 
   return (
-    <div className="fixed bottom-0 sm:bottom-auto flex gap-2 sm:block sm:left-0 sm:top-1/2 transform sm:-translate-y-1/2 sm:m-2 sm:space-y-1 z-50 items-end overflow-x-scroll sm:overflow-hidden w-full sm:w-fit sm:px-0 px-4 sm:bg-transparent bg-secondary"
+    <div className="fixed bottom-0 sm:bottom-auto flex gap-2 sm:block sm:left-0 sm:top-1/2 transform sm:-translate-y-1/2 sm:m-2 sm:space-y-1 z-50 items-end overflow-x-scroll sm:overflow-hidden w-full sm:w-fit sm:px-0 px-4 py-2 sm:bg-transparent bg-secondary"
     
     style={{
       scrollbarWidth: "none",

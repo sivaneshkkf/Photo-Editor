@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { OptionContext, UploadContext } from "../context/OptionContext";
 import ReactCrop from "react-image-crop";
 import ImageCrop from "./ImageCrop";
-import { TransformWrapper, TransformComponent } from "react-zoom-pan-pinch";
+import { MapInteractionCSS } from "react-map-interaction";
 
 const TheImage = () => {
   const {
@@ -167,28 +167,26 @@ const TheImage = () => {
   return (
     <>
       {url && currentPage === "edit" ? (
-        <TransformWrapper>
-          <TransformComponent>
-            <div className="flex w-screen flex-col items-center justify-center min-h-screen box-border sm:h-screen overflow-hidden">
-              {/* Display the image */}
+        <MapInteractionCSS>
+          <div className="flex w-screen flex-col items-center justify-center min-h-screen box-border sm:h-screen overflow-hidden">
+            {/* Display the image */}
 
-              <img
-                src={url}
-                ref={imageRef}
-                alt="Filtered"
-                className="sm:max-w-sm max-w-xs select-none"
-                style={{
-                  filter: getImageFilter(),
-                  ...getImageStyle(),
-                  // transform: `scale(${zoom})`,
-                }}
-              />
+            <img
+              src={url}
+              ref={imageRef}
+              alt="Filtered"
+              className="sm:max-w-sm max-w-xs select-none"
+              style={{
+                filter: getImageFilter(),
+                ...getImageStyle(),
+                // transform: `scale(${zoom})`,
+              }}
+            />
 
-              {/* Hidden canvas for processing */}
-              <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
-            </div>
-          </TransformComponent>
-        </TransformWrapper>
+            {/* Hidden canvas for processing */}
+            <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
+          </div>
+        </MapInteractionCSS>
       ) : (
         currentPage === "crop" && (
           <div className="flex flex-col items-center justify-center h-screen overflow-hidden">

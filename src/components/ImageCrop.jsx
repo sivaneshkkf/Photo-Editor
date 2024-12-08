@@ -119,7 +119,7 @@ const ImageCrop = ({ url }) => {
         />
       </ReactCrop>
       <canvas ref={canvasRef} style={{ display: "none" }}></canvas>
-      <div className="absolute w-96 bottom-2 left-1/2 transform -translate-x-1/2 bg-secondary px-5 py-2 rounded-lg flex flex-col justify-center items-center gap-2">
+      <div className="absolute w-96 bottom-20 left-1/2 transform -translate-x-1/2 bg-secondary px-5 py-2 rounded-lg flex flex-col justify-center items-center gap-2">
         <div>
           <p className="text-textpara text-xs font-semibold">
             {selectedMenuOption.name.toUpperCase()}

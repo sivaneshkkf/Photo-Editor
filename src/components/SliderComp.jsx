@@ -31,9 +31,9 @@ const SliderComp = () => {
   return (
     <>
       {selectedMenuOption && currentPage == "edit" && (
-        <motion.div className="fixed bottom-12 sm:bottom-2 left-1/2 transform -translate-x-1/2 bg-secondary w-full sm:w-fit px-5 pb-1 pt-2 rounded-lg flex flex-col justify-center items-center gap-2"
+        <motion.div className="fixed bottom-20 sm:bottom-2 left-1/2 transform -translate-x-1/2 bg-secondary w-full sm:w-fit px-5 pb-1 pt-2 rounded-lg flex flex-col justify-center items-center gap-2"
         initial={{bottom:-50}}
-        animate={{bottom:50}}
+        animate={{bottom:65}}
         transition={{duration:0.5, ease:"easeInOut"}}
         >
           <div>
