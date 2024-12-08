@@ -111,7 +111,7 @@ const ImageCrop = ({ url }) => {
           src={url}
           alt="cropImg"
           ref={imageRef}
-          className="w-96"
+          className="sm:w-96 w-60"
           style={{
             transform: `scale(${scale}) rotate(${rotation}deg)`,
           }}

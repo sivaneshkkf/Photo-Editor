@@ -121,13 +121,36 @@ const TheImage = () => {
         }
       }
     };
-
-    // Attach the event listener with passive: false to allow preventDefault
+  
+    const handleTouchZoom = (e) => {
+      if (e.touches.length === 2) {
+        e.preventDefault(); // Prevent pinch-to-zoom behavior
+        const touch1 = e.touches[0];
+        const touch2 = e.touches[1];
+  
+        const dist = Math.sqrt(
+          Math.pow(touch2.clientX - touch1.clientX, 2) +
+            Math.pow(touch2.clientY - touch1.clientY, 2)
+        );
+  
+        setZoom((prevZoom) => {
+          const delta = dist > prevZoom ? 0.02 : -0.02; // Adjust zoom based on distance
+          return Math.max(0.1, prevZoom + delta); // Prevent zoom level from going below 0.1
+        });
+      }
+    };
+  
+    // Attach event listeners for desktop and mobile
     document.addEventListener("wheel", handleZoom, { passive: false });
-
+    document.addEventListener("touchmove", handleTouchZoom, { passive: false });
+  
     // Cleanup
-    return () => document.removeEventListener("wheel", handleZoom);
+    return () => {
+      document.removeEventListener("wheel", handleZoom);
+      document.removeEventListener("touchmove", handleTouchZoom);
+    };
   }, []);
+  
 
   return (
     <>
@@ -138,7 +161,7 @@ const TheImage = () => {
             src={url}
             ref={imageRef}
             alt="Filtered"
-            className="max-w-sm select-none"
+            className="sm:max-w-sm max-w-xs select-none"
             style={{
               filter: getImageFilter(),
               ...getImageStyle(),

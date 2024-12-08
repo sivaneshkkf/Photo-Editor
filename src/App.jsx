@@ -66,19 +66,32 @@ const App = () => {
     return () => clearTimeout(timeout);
   }, [message]);
 
+
+  // prevent zoom
   useEffect(() => {
     const handleWheel = (e) => {
       if (e.ctrlKey) {
-        e.preventDefault();
+        e.preventDefault(); // Prevent zoom on Ctrl + wheel
       }
     };
-
+  
+    const handleTouchMove = (e) => {
+      if (e.touches.length > 1) {
+        e.preventDefault(); // Prevent pinch-to-zoom on mobile
+      }
+    };
+  
+    // Add event listeners for both desktop and mobile
     window.addEventListener("wheel", handleWheel, { passive: false });
-
+    window.addEventListener("touchmove", handleTouchMove, { passive: false });
+  
     return () => {
+      // Clean up event listeners
       window.removeEventListener("wheel", handleWheel);
+      window.removeEventListener("touchmove", handleTouchMove);
     };
   }, []);
+  
 
   return (
     <UploadContext.Provider
