@@ -27,7 +27,7 @@ const useFetchImages = (refreshKey) => {
         return null; // Handle the error case
       }
   
-      console.log("User data:", data);
+      //console.log("User data:", data);
       setUserImages(data)
     } catch (err) {
       console.error("Unexpected error:", err);
@@ -46,7 +46,7 @@ const useFetchImages = (refreshKey) => {
         return null; // Handle the error case
       }
   
-      console.log("Public data:", data);
+      //console.log("Public data:", data);
       setPublicImages(data)
     } catch (err) {
       console.error("Unexpected error:", err);

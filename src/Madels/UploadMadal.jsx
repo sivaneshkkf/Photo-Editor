@@ -20,7 +20,6 @@ const UploadMadal = () => {
   const {setFileForStyle, styledImage} = useGetImage(url)
 
   const handleUpload = () => {
-    console.log(styledImage)
     setImageUrl(styledImage)
   };
   return (

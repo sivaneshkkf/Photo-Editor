@@ -29,7 +29,6 @@ const SliderComp = () => {
     setUndoHistory((pre) => [...pre, menuItemOptions]);
   }
 
-  console.log(size)
 
   return (
     <>

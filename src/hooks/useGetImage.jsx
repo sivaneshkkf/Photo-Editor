@@ -79,7 +79,7 @@ const useGetImage = (url) => {
         setStyledImage(styledURL);
       }
 
-      console.log(styledURL);
+      //console.log(styledURL);
     };
   }, [url, menuItemOptions]);
 

@@ -13,7 +13,7 @@ const useStorage = (optionValue) => {
 
   useEffect(() => {
     if (imageUrl) {
-      console.log("Image URL provided:", imageUrl);
+      //console.log("Image URL provided:", imageUrl);
       uploadImageFromUrl(imageUrl); // Trigger the upload process
     }
   }, [imageUrl]); // Reacts to changes in the `imageUrl`
@@ -61,7 +61,6 @@ const useStorage = (optionValue) => {
 
       const publicUrl = publicData.publicUrl;
       setUrl(publicUrl); // Set the URL of the uploaded file
-      console.log("Uploaded file URL:", publicUrl);
 
       // Insert the URL into the database
       await insertData(publicUrl,data.id,data.path);

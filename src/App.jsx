@@ -46,7 +46,7 @@ const App = () => {
     const { data: subscription } = supabase.auth.onAuthStateChange(
       (event, session) => {
         if (session) {
-          console.log("User session:", session.user.user_metadata);
+          //console.log("User session:", session.user.user_metadata);
           setUserData(session.user.user_metadata);
           //setMessage("Sign in Successfully!");
         } else {
