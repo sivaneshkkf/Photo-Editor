@@ -193,7 +193,7 @@ const SideBar = () => {
 
   return (
     <div
-      className="fixed bottom-0 sm:bottom-auto flex gap-2 sm:block sm:left-0 sm:top-1/2 transform sm:-translate-y-1/2 sm:m-2 sm:space-y-1 z-50 items-end overflow-x-scroll sm:overflow-x-visible w-full sm:w-fit sm:px-0 px-4 py-2 sm:bg-transparent bg-secondary"
+      className="fixed bottom-0 sm:bottom-auto flex items-center sm:block sm:left-0 sm:top-1/2 transform sm:-translate-y-1/2 sm:m-2 sm:space-y-1 z-50 overflow-x-scroll sm:overflow-x-visible w-full sm:w-fit sm:px-0 px-4 py-2 sm:bg-transparent bg-secondary"
       style={{
         scrollbarWidth: "none",
         msOverflowStyle: "none",
@@ -248,7 +248,12 @@ function SideBarItems({
         <div className="absolute sm:h-full bg-blue-600 sm:w-[3px] left-0 bottom-0 sm:bottom-auto w-full h-[4px]"></div>
       )}
 
-      <Icon className="w-5 h-5 text-icon" />
+      <div className="flex flex-col justify-center items-center gap-1">
+        <Icon className="w-5 h-5 text-icon" />
+        <p className="sm:hidden text-[10px] select-none text-icon whitespace-nowrap">
+          {name}
+        </p>
+      </div>
 
       {/* Wrap with AnimatePresence */}
       <AnimatePresence>
@@ -256,7 +261,11 @@ function SideBarItems({
           <motion.p
             className="absolute hidden sm:block bg-zinc-900 px-3 py-1 rounded text-xs select-none text-gray-600 whitespace-nowrap -z-10"
             initial={{ opacity: 0, left: 0 }}
-            animate={hoverAnim.anim ? { opacity: 1, left: 55 } : {opacity:0, left:0}}
+            animate={
+              hoverAnim.anim
+                ? { opacity: 1, left: 55 }
+                : { opacity: 0, left: 0 }
+            }
             exit={{ opacity: 0, left: 0 }}
             transition={{ duration: 0.2, ease: "easeInOut" }}
           >

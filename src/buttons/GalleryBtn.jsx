@@ -28,12 +28,15 @@ const GalleryBtn = () => {
 
   return (
     <div
-      className={`flex px-2 pb-2 pt-3 justify-center cursor-pointer items-center bg-secondary sm:h-8 rounded roun`}
+      className={`flex flex-col gap-1 px-2 pb-2 ml-2 sm:ml-0 justify-center cursor-pointer items-center bg-secondary sm:h-8 rounded roun`}
       onClick={handleClick}
     >
       <span className="text-2xl text-white font-semibold select-none">
         <FcGallery />
       </span>
+      <p className="sm:hidden text-[10px] select-none text-icon whitespace-nowrap">
+          Gallery
+        </p>
     </div>
   );
 };
