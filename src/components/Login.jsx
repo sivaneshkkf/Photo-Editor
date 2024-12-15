@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { IoLogIn } from "react-icons/io5";
 import { UserContext } from "../context/OptionContext";
 import { supabase } from "../supabase/Config";
@@ -12,13 +12,10 @@ const Login = () => {
     setMessage,
   } = useContext(UserContext);
 
-  //   signin
   const handleGoogleSignIn = async () => {
     const authURL = `${
       supabase.authUrl
-    }/authorize?provider=google&redirect_to=${encodeURIComponent(
-      window.location.origin
-    )}`;
+    }/authorize?provider=google&redirect_to=https://sivaneshkkf.github.io/Photo-Editor/`;
 
     // Open the OAuth flow in a new popup window
     const popup = window.open(authURL, "_blank", "width=500,height=600");
@@ -51,12 +48,8 @@ const Login = () => {
       }
     }, 500);
   };
-
-  // useEffect(() => {
-  //   if(userData){
-  //     console.log(userData.avatar_url)
-  //   }
-  // },[userData])
+  
+  
 
   return (
     <>
@@ -67,7 +60,7 @@ const Login = () => {
         >
           <p>{userData?.full_name}</p>
           <img
-            src={userData?.avatar_url}
+            src={userData?.avatar_url || "https://via.placeholder.com/150"}
             alt="profile"
             className="sm:w-10 sm:h-10 w-8 h-8 rounded-full border-2 border-textpara"
           />
@@ -77,7 +70,7 @@ const Login = () => {
           className="flex gap-1 justify-center items-center text-textpara text-sm font-semibold cursor-pointer"
           onClick={handleGoogleSignIn}
         >
-          <p>Sing in</p>
+          <p>Sign in</p>
           <IoLogIn className="w-7 h-7" />
         </div>
       )}

@@ -168,7 +168,7 @@ const TheImage = () => {
     <>
       {url && currentPage === "edit" ? (
         <MapInteractionCSS>
-          <div className="flex w-screen flex-col items-center justify-center min-h-screen box-border sm:h-screen overflow-hidden">
+          <div className="flex w-screen flex-col items-center justify-center min-h-screen box-border sm:h-screen overflow-hidden z-10">
             {/* Display the image */}
 
             <img

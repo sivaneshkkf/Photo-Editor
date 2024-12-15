@@ -67,7 +67,6 @@ const App = () => {
     return () => clearTimeout(timeout);
   }, [message]);
 
-
   // prevent zoom
   useEffect(() => {
     const handleWheel = (e) => {
@@ -157,7 +156,7 @@ const App = () => {
             {galleryOpen &&  <UploadedImages />}
 
             <SliderComp />
-            <div className="absolute top-2 right-2 hidden sm:block">
+            <div className="fixed top-2 right-2 hidden sm:block z-50">
               <Login />
             </div>
             {(loginMadalOpen || message || uploadMadal || signInMadalOpen) && (
